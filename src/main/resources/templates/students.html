@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student List | Marksheet System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark px-4">
+    <span class="navbar-brand">🎓 Student Marksheet System</span>
+    <a href="/dashboard" class="btn btn-secondary btn-sm">Dashboard</a>
+</nav>
+
+<div class="container mt-4">
+
+    <h3 class="mb-4 text-center">📋 Student List</h3>
+
+    <!-- If no students -->
+    <div th:if="${#lists.isEmpty(students)}" class="alert alert-warning text-center">
+        No students found.
+    </div>
+
+    <!-- Student Table -->
+    <table th:if="${!#lists.isEmpty(students)}"
+           class="table table-bordered table-striped shadow">
+
+        <thead class="table-dark text-center">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Roll No</th>
+            <th>Maths</th>
+            <th>Science</th>
+            <th>English</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+       <tr th:each="student : ${students}">
+    <td th:text="${student.id}"></td>
+    <td th:text="${student.rollNo}"></td>
+    <td th:text="${student.name}"></td>
+    <td th:text="${student.studentClass}"></td>
+    <td th:text="${student.division}"></td>
+    <td th:text="${student.school}"></td>
+    <td>
+        <a th:href="@{/marksheet/pdf/{id}(id=${student.id})}" class="btn btn-sm btn-success">Download PDF</a>
+    </td>
+</tr>
+
+
+
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>
